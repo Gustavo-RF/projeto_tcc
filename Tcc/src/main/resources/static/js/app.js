@@ -31,13 +31,16 @@ $('.salvar').click(function(){
         contentType: "application/json",
         url: "/resultado",
         data: JSON.stringify(valores),
-        dataType: 'json',
+        dataType: 'text',
         cache: false,
         timeout: 600000,
         success: function (data) {
             console.log("SUCCESS : ", data);
             $("#feedback").html(data);
-            window.open('/files/teste.txt','_blank');
+            
+            var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, "resultado.txt");
+            //window.open('/files/teste.txt','_blank');
 
         },
         error: function (e) {
